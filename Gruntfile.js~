@@ -1,0 +1,43 @@
+module.exports = function(grunt) {
+
+  grunt.initConfig({
+
+    // Load the S3 credentials from aws-keys.json
+    //aws: grunt.file.readJSON('aws-keys.json'),
+
+    // Pass config options to 'grunt-s3'
+    s3: {
+      options: {
+        //key: 'AKIAIQXQFMRW4GVEQTDQ',
+        //secret: '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',
+        bucket: 'labnook',
+        access: 'public-read'//,
+        //headers: {
+        //  // Two Year cache policy (1000 * 60 * 60 * 24 * 730)
+        //  "Cache-Control": "max-age=630720000, public",
+        //  "Expires": new Date(Date.now() + 63072000000).toUTCString()
+        //}
+      },
+      upload: {
+        upload: [
+          //{
+          //  src: 'dist/index.html',
+          //  dest: 'index.html'
+          //},
+          {
+            src: 'dist/assets/*',
+            dest: 'assets/'
+          }
+        ]
+      }
+    } // end s3
+
+  }); // end grunt.initConfig
+
+  // tell grunt to load and use the grunt-s3 extension
+  grunt.loadNpmTasks('grunt-s3');
+
+  // Default task(s).
+  grunt.registerTask('default', ['s3']);
+
+};
